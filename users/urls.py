@@ -1,8 +1,7 @@
-from rest_framework import serializers
+from django.urls import path, include
 
-from users.models import Payment
+from users.views import PaymentListAPIView
 
-class PaymentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Payment
-        fields = '__all__'
+urlpatterns = [
+    path('payment/', PaymentListAPIView.as_view(), name='payment_list'),
+]
