@@ -7,8 +7,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         user_list = [
-            {'email': 'user1@sky.pro', 'phone': '+79254832848'},
-            {'email': 'user2@sky.pro', 'phone': '+78542386479'},
+            {'username': 'user1', 'email': 'user1@sky.pro', 'phone': '+79254832848'},
+            {'username': 'user2', 'email': 'user2@sky.pro', 'phone': '+78542386479'},
         ]
         user_for_create = []
         for user_item in user_list:
