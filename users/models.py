@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 from materials.models import Course, Lesson
 
@@ -11,6 +12,11 @@ PAYMENT_CHOICE = {
 }
 
 
+class UserRoles(models.TextChoices):
+    MEMBER = 'member', _('member')
+    MODERATOR = 'moderator', _('moderator')
+
+
 class User(AbstractUser):
     first_name = models.CharField(max_length=100, verbose_name='имя', **NULLABLE)
     last_name = models.CharField(max_length=100, verbose_name='фамилия', **NULLABLE)
@@ -19,6 +25,7 @@ class User(AbstractUser):
     city = models.TextField(max_length=100, verbose_name='город', **NULLABLE)
     phone = models.CharField(max_length=15, verbose_name='телефон', **NULLABLE)
     avatar = models.ImageField(upload_to='users/', verbose_name='аватар', **NULLABLE)
+    role = models.CharField(max_length=9, choices=UserRoles.choices, default=UserRoles.MEMBER, verbose_name='Роль')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
