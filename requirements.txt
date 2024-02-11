@@ -13,3 +13,4 @@ python-dotenv                 1.0.1
 pytz                          2023.3.post1
 setuptools                    68.1.2
 sqlparse                      0.4.4
+django
