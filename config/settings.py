@@ -141,3 +141,7 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
+
+
+EMAIL_SUPERUSER = os.getenv('EMAIL_SUPERUSER')
+PASS_SUPERUSER = os.getenv('PASS_SUPERUSER')
