@@ -9,6 +9,8 @@ class Command(BaseCommand):
         user_list = [
             {'username': 'user1', 'email': 'user1@sky.pro', 'phone': '+79254832848'},
             {'username': 'user2', 'email': 'user2@sky.pro', 'phone': '+78542386479'},
+            {'username': 'user3', 'email': 'user3@sky.pro', 'phone': '+78542386279'},
+            {'username': 'user4', 'email': 'user4@sky.pro', 'phone': '+78544386479'},
         ]
         user_for_create = []
         for user_item in user_list:
