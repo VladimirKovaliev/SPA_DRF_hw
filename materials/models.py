@@ -1,52 +1,51 @@
-from django.db import models
-
 from django.conf import settings
+from django.db import models
 
 NULLABLE = {'null': True, 'blank': True}
 
 
 class Course(models.Model):
-    title = models.CharField(max_length=100, verbose_name='навзание')
-    preview = models.ImageField(upload_to='course/', verbose_name='превью', **NULLABLE)
-    description = models.TextField(verbose_name='описание', **NULLABLE)
-    link = models.CharField(max_length=300, verbose_name='ссылка', **NULLABLE)
+    title = models.CharField(max_length=100, verbose_name='Название')
+    description = models.TextField(verbose_name='Описание', **NULLABLE)
+    preview = models.ImageField(upload_to='course/', verbose_name='Превью', **NULLABLE)
+    link = models.CharField(max_length=300, verbose_name='Ссылка', **NULLABLE)
 
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, **NULLABLE)
 
     def __str__(self):
-        return f'{self.title}: {self.description}'
+        return self.title
 
     class Meta:
-        verbose_name = 'курс'
-        verbose_name_plural = 'курсы'
+        verbose_name = 'Курс'
+        verbose_name_plural = 'Курсы'
 
 
 class Lesson(models.Model):
-    title = models.CharField(max_length=100, verbose_name='навзание')
-    description = models.TextField(verbose_name='описание', **NULLABLE)
-    preview = models.ImageField(upload_to='lesson/', verbose_name='превью', **NULLABLE)
-    video_link = models.CharField(max_length=200, verbose_name='ссылка на видео', **NULLABLE)
+    title = models.CharField(max_length=100, verbose_name='Название')
+    description = models.TextField(verbose_name='Описание', **NULLABLE)
+    preview = models.ImageField(upload_to='lesson/', verbose_name='Превью', **NULLABLE)
+    link = models.CharField(max_length=300, verbose_name='Ссылка', **NULLABLE)
 
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, **NULLABLE)
 
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='курс')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Курс')
 
     def __str__(self):
-        return f'{self.title}: {self.description}'
+        return self.title
 
     class Meta:
-        verbose_name = 'урок'
-        verbose_name_plural = 'уроки'
+        verbose_name = 'Урок'
+        verbose_name_plural = 'Уроки'
 
 
 class Subscription(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='курс', **NULLABLE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='пользователь',
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Курс', **NULLABLE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Пользователь',
                              **NULLABLE)
 
     def __str__(self):
         return f'{self.user}: {self.course}'
 
     class Meta:
-        verbose_name = 'подписка'
-        verbose_name_plural = 'подписки'
+        verbose_name = 'Подписка'
+        verbose_name_plural = 'Подписки'
