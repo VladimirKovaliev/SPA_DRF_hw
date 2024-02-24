@@ -4,12 +4,13 @@ from config.settings import STRIPE_KEY
 
 stripe.api_key = STRIPE_KEY
 
+
 def creating_a_purchase(product: str, price: int):
     subscription_product = stripe.Product.create(
         name=product,
     )
 
-    subscription_price = stripe.Price.Create(
+    subscription_price = stripe.Price.create(
         unit_amount=price,
         currency="rub",
         recurring={"interval": "month"},
