@@ -6,10 +6,10 @@ from materials.models import Course, Lesson
 
 NULLABLE = {'null': True, 'blank': True}
 
-PAYMENT_CHOICE = {
-    ('cash', 'Наличный'),
+PAYMENT_CHOICE = (
+    ('cash', 'Наличные'),
     ('transfer', 'Перевод на счет')
-}
+)
 
 
 class UserRoles(models.TextChoices):
@@ -18,20 +18,19 @@ class UserRoles(models.TextChoices):
 
 
 class User(AbstractUser):
-    first_name = models.CharField(max_length=100, verbose_name='имя', **NULLABLE)
-    last_name = models.CharField(max_length=100, verbose_name='фамилия', **NULLABLE)
-    email = models.EmailField(unique=True, verbose_name='почта')
+    username = None
 
-    city = models.TextField(max_length=100, verbose_name='город', **NULLABLE)
-    phone = models.CharField(max_length=15, verbose_name='телефон', **NULLABLE)
-    avatar = models.ImageField(upload_to='users/', verbose_name='аватар', **NULLABLE)
+    email = models.EmailField(unique=True, verbose_name='Email')
+    phone = models.CharField(max_length=20, verbose_name='Телефон', **NULLABLE)
+    city = models.CharField(max_length=50, verbose_name='Город', **NULLABLE)
+    avatar = models.ImageField(upload_to='users/', verbose_name='Аватар', **NULLABLE)
     role = models.CharField(max_length=9, choices=UserRoles.choices, default=UserRoles.MEMBER, verbose_name='Роль')
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
     def __str__(self):
-        return f'Польхователь - {self.email}'
+        return f'Пользователь - {self.email}'
 
     class Meta:
         verbose_name = 'Пользователь'
@@ -39,13 +38,13 @@ class User(AbstractUser):
 
 
 class Payment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь', null=True)
     date_of_payment = models.DateField(auto_now=True, verbose_name='Дата оплаты')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Курс', **NULLABLE)
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, verbose_name='Урок', **NULLABLE)
-    payment_amount = models.SmallIntegerField(verbose_name='Сумма оплаты')
+    payment_amount = models.SmallIntegerField(verbose_name='Сумма оплаты', null=True)
     payment_method = models.CharField(max_length=8, default='transfer', choices=PAYMENT_CHOICE,
-                                      verbose_name='Способ оплаты')
+                                      verbose_name='Способ оплаты', null=True)
 
     def __str__(self):
         if self.course:
