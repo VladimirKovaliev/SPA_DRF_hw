@@ -1,4 +1,4 @@
-from datetime import timezone
+from django.utils import timezone
 
 from celery import shared_task
 from django.core.mail import send_mail
@@ -19,7 +19,7 @@ def update_alert(email, course):
 
 @shared_task
 def user_deactivate():
-    now = timezone.now
+    now = timezone.now()
     users_list = User.objects.all()
 
     for user in users_list:
