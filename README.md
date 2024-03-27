@@ -16,7 +16,7 @@
 ```bash
   python -m pip install -r requirements.txt 
 ```
-3. Укажите свои данные в env.example
+3. Укажите свои данные для зависимостей в env.example
 
 4. Выполните миграции
 ```bash
